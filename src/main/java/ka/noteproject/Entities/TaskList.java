@@ -12,9 +12,7 @@ public class TaskList {
     private Long uid;
     private String name;
 
-    public TaskList() {
-
-    }
+    public TaskList() {}
 
     public TaskList(String name) {
         this(null, name);

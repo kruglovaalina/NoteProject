@@ -8,10 +8,9 @@ public class Tasks {
     @GeneratedValue
     private Long uid;
     private String description;
+    private Boolean done;
 
-    public Tasks() {
-
-    }
+    public Tasks() { }
 
     public Long getUid() {
         return uid;
@@ -40,4 +39,8 @@ public class Tasks {
     public void setTaskList(TaskList list) {
         this.list = list;
     }
+
+    public Boolean getDone() { return done; }
+
+    public void setDone(Boolean done) { this.done = done; }
 }
