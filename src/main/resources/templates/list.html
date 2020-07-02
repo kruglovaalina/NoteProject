@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Notes</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<table  align="center" rules="rows" style="width:60%;">
+    <tr>
+        <td>
+            <!--
+            bgcolor="#7FFFD4" - фоновый цвет в шапке, если нет картинки.
+            cellpadding="10" - отступ содержимого от рамки не менее 10px.
+            style="width:100%; border-radius:5px;" - добавляем "резиновость" и закругляем уголки рамки-->
+            <table border="1"  bgcolor="#7FFFD4" cellpadding="10" style="width:100%; border-radius:5px;">
+                <tr>
+                    <td align="center" colspan="2">
+                        <font color="423434"><h1>Заметки</h1></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:30%" bgcolor="#e6e6fa">
+                        <div th:each="list: ${lists}">
+                            <a th:href="@{/list/{uid}(uid=${list.getUid()})}" th:utext="${list.getName()}"></a>
+                        </div>
+
+                    </td>
+                    <td bgcolor="#e6e6fa">
+                        <p></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

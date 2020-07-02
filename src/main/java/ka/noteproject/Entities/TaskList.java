@@ -38,8 +38,8 @@ public class TaskList {
     public void setName(String name) {
         this.name = name;
     }
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "list")
+/*
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tasks")
     private Set<Tasks> tasks;
 
     public Set<Tasks> getTasks() {
@@ -49,4 +49,5 @@ public class TaskList {
     public void setTasks(Set<Tasks> tasks) {
         this.tasks = tasks;
     }
+ */
 }
