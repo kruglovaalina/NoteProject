@@ -1,16 +1,21 @@
 package ka.noteproject.Entities;
 
-import javax.persistence.*;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
+import java.util.*;
 
 @Entity
 public class TaskList {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long uid;
     private String name;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "taskList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Tasks> tasks;
 
     public TaskList() {}
 
@@ -38,16 +43,12 @@ public class TaskList {
     public void setName(String name) {
         this.name = name;
     }
-/*
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tasks")
-    private Set<Tasks> tasks;
 
-    public Set<Tasks> getTasks() {
+    public List<Tasks> getTasks() {
         return tasks;
     }
 
-    public void setTasks(Set<Tasks> tasks) {
+    public void setTasks(List<Tasks> tasks) {
         this.tasks = tasks;
     }
- */
 }

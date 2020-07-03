@@ -8,10 +8,7 @@
 <table  align="center" rules="rows" style="width:60%;">
     <tr>
         <td>
-            <!--
-            bgcolor="#7FFFD4" - фоновый цвет в шапке, если нет картинки.
-            cellpadding="10" - отступ содержимого от рамки не менее 10px.
-            style="width:100%; border-radius:5px;" - добавляем "резиновость" и закругляем уголки рамки-->
+
             <table border="1"  bgcolor="#7FFFD4" cellpadding="10" style="width:100%; border-radius:5px;">
                 <tr>
                     <td align="center" colspan="2">
@@ -20,13 +17,20 @@
                 </tr>
                 <tr>
                     <td style="width:30%" bgcolor="#e6e6fa">
+                        <h4 align="center">Категории:</h4>
                         <div th:each="list: ${lists}">
                             <a th:href="@{/list/{uid}(uid=${list.getUid()})}" th:utext="${list.getName()}"></a>
                         </div>
-
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <form action="#" th:action="@{/addList}" method="post" >
+                            <input type="text" name="name" />
+                            <input type="submit" value="Добавить" />
+                        </form>
                     </td>
                     <td bgcolor="#e6e6fa">
-                        <p></p>
+                        <h4 align="center">Задачи:</h4>
                     </td>
                 </tr>
             </table>

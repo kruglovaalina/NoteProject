@@ -15,13 +15,14 @@ public class Application {
     public static void main(String[] args) {
 
         ConfigurableApplicationContext context = SpringApplication.run(Application.class);
-        TaskListRepository repository = context.getBean(TaskListRepository.class);
+        //TaskListRepository repository = context.getBean(TaskListRepository.class);
 
         // save a couple of lists
-        repository.save(new TaskList(1L, "Test list1"));
-        repository.save(new TaskList(2L, "Test list2"));
-        repository.save(new TaskList(3L, "Test list3"));
-
+        //repository.save(new TaskList(1L, "Test list1"));
+        //repository.save(new TaskList(2L, "Test list2"));
+        //repository.save(new TaskList(3L, "Test list3"));
+        //repository.deleteAll();
+        
 /*
         // fetch all lists
         Iterable<TaskList> lists = repository.findAll();
