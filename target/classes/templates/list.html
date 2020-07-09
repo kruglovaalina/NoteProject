@@ -11,26 +11,36 @@
 
             <table border="1"  bgcolor="#7FFFD4" cellpadding="10" style="width:100%; border-radius:5px;">
                 <tr>
-                    <td align="center" colspan="2">
+                    <td  align="center" colspan="2">
                         <font color="423434"><h1>Заметки</h1></font>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:30%" bgcolor="#e6e6fa">
+                    <td valign="top" style="width:40%" bgcolor="#e6e6fa">
                         <h4 align="center">Категории:</h4>
                         <div th:each="list: ${lists}">
                             <a th:href="@{/list/{uid}(uid=${list.getUid()})}" th:utext="${list.getName()}"></a>
                         </div>
-                        <p></p>
-                        <p></p>
-                        <p></p>
-                        <form action="#" th:action="@{/addList}" method="post" >
+                    </td>
+                    <td valign="top" bgcolor="#e6e6fa">
+                        <h4 align="center">Задачи:</h4>
+                        <div th:each="task: ${tasks}">
+                            <a th:href="@{/task/{uid}(uid=${task.getUid()})}" th:utext="${task.getTittle()}"></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:40%" bgcolor="#e6e6fa">
+                        <form action="#" method="post" th:action="@{/addList}">
                             <input type="text" name="name" />
                             <input type="submit" value="Добавить" />
                         </form>
                     </td>
                     <td bgcolor="#e6e6fa">
-                        <h4 align="center">Задачи:</h4>
+                        <form action="#" method="post" th:action="@{/list/addTask}">
+                            <input type="text" name="name"  />
+                            <input type="submit" value="Добавить" />
+                        </form>
                     </td>
                 </tr>
             </table>

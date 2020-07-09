@@ -1,50 +1,63 @@
 package ka.noteproject.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
 
 @Entity
+@Table(name = "TASKS")
 public class Tasks {
     @Id
-    @GeneratedValue
+    @Column(name = "UID", nullable = false, length = 10)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long uid;
-    private Long parent_uid;
+
+    //private Long parent_uid;
+    @Column(name = "TITTLE", nullable = false)
     private String tittle;
+    @Column(name = "DESCRIPTION")
     private String description;
+    @Column(name = "DONE")
     private Boolean done;
+    @Column(name = "CREATE_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+    @Column(name = "UPDATE_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
+    @Column(name = "DUE_DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private Date dueDate;
 
-    @ManyToOne()
-    @JoinColumn(name = "ID_F", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "taskListUid", nullable = false)
     private TaskList taskList;
 
-    public Tasks() { }
+
+    public Tasks() {}
 
     public Tasks(Long parent_uid, String tittle){
-        this(null, parent_uid, tittle, "", false, null, null, null);
-
+        this(null, tittle, "", false, null, null, null);
+        /*
         LocalDateTime currentDataTime = LocalDateTime.now();
         this.createDate = Date.from(currentDataTime.atZone(ZoneId.systemDefault()).toInstant());
         this.updateDate = createDate;
+        */
     }
 
-    public Tasks(Long uid, long parent_uid, String tittle, String description, Boolean done,
-                      Date createDate, Date updateDate, Date date){
+
+
+
+    public Tasks(Long uid, String tittle, String description, Boolean done,
+                      Date createDate, Date updateDate, Date dueDate){
         this.uid = uid;
-        this.parent_uid = parent_uid;
         this.tittle = tittle;
         this.description = description;
         this.done = done;
         this.createDate = createDate;
         this.updateDate = updateDate;
-        this.date = date;
+        this.dueDate = dueDate;
     }
 
     public Long getUid() {
@@ -53,14 +66,6 @@ public class Tasks {
 
     public void setUid(Long uid) {
         this.uid = uid;
-    }
-
-    public Long getParent_uid() {
-        return parent_uid;
-    }
-
-    public void setParent_uid(Long parent_uid) {
-        this.parent_uid = parent_uid;
     }
 
     public String getTittle() {
@@ -87,11 +92,29 @@ public class Tasks {
         this.done = done;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getDueDate() {
+        return dueDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDueDate(Date date) {
+        this.dueDate = date;
+    }
+
+    @JsonIgnore
+    public TaskList getTaskList() {
+        return taskList;
+    }
+
+    @JsonIgnore
+    public void setTaskList(TaskList newTaskList) {
+        this.taskList = taskList;
+    }
+
+    public Long getTaskListUid() {
+        return taskList.getUid();
+    }
+
+    public String getTaskListName() {
+        return taskList.getName();
     }
 }

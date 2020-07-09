@@ -9,13 +9,14 @@ import java.util.*;
 public class TaskList {
 
     @Id
+    @Column(name = "UID", nullable = false, length = 10)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long uid;
+    @Column(name = "NAME")
     private String name;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "taskList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Tasks> tasks;
+    @OneToMany(mappedBy = "taskList", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Tasks> tasks = new HashSet<>();
 
     public TaskList() {}
 
@@ -42,13 +43,5 @@ public class TaskList {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Tasks> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Tasks> tasks) {
-        this.tasks = tasks;
     }
 }
