@@ -113,7 +113,7 @@ public class Tasks {
     public Long getTaskListUid() {
         return taskList.getUid();
     }
-
+    
     public String getTaskListName() {
         return taskList.getName();
     }
