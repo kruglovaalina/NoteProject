@@ -1,7 +1,7 @@
-package ka.noteproject.Repository;
+package ka.noteproject.repository;
 
-import ka.noteproject.Entities.TaskList;
-import ka.noteproject.Entities.Tasks;
+import ka.noteproject.domain.TaskList;
+import ka.noteproject.domain.Tasks;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

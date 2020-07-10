@@ -1,6 +1,4 @@
-package ka.noteproject.Entities;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package ka.noteproject.domain;
 
 import javax.persistence.*;
 import java.util.*;

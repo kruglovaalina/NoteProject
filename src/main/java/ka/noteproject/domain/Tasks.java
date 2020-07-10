@@ -1,4 +1,4 @@
-package ka.noteproject.Entities;
+package ka.noteproject.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -45,9 +45,6 @@ public class Tasks {
         this.updateDate = createDate;
         */
     }
-
-
-
 
     public Tasks(Long uid, String tittle, String description, Boolean done,
                       Date createDate, Date updateDate, Date dueDate){
@@ -107,13 +104,13 @@ public class Tasks {
 
     @JsonIgnore
     public void setTaskList(TaskList newTaskList) {
-        this.taskList = taskList;
+        this.taskList = newTaskList;
     }
 
     public Long getTaskListUid() {
         return taskList.getUid();
     }
-    
+
     public String getTaskListName() {
         return taskList.getName();
     }

@@ -23,6 +23,7 @@
                         </div>
                     </td>
                     <td valign="top" bgcolor="#e6e6fa">
+                        <h4 align="center" th:utext="${currentList.getName()}"></h4>
                         <h4 align="center">Задачи:</h4>
                         <div th:each="task: ${tasks}">
                             <a th:href="@{/task/{uid}(uid=${task.getUid()})}" th:utext="${task.getTittle()}"></a>
@@ -38,7 +39,8 @@
                     </td>
                     <td bgcolor="#e6e6fa">
                         <form action="#" method="post" th:action="@{/list/addTask}">
-                            <input type="text" name="name"  />
+                            <input type="hidden" name="parentUid" th:value="${currentList.getUid()}"  />
+                            <input type="text" name="title"  />
                             <input type="submit" value="Добавить" />
                         </form>
                     </td>

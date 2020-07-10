@@ -1,9 +1,9 @@
-package ka.noteproject.View;
+package ka.noteproject.view;
 
-import ka.noteproject.Entities.TaskList;
-import ka.noteproject.Entities.Tasks;
-import ka.noteproject.Repository.TaskListRepository;
-import ka.noteproject.Repository.TasksRepository;
+import ka.noteproject.domain.TaskList;
+import ka.noteproject.domain.Tasks;
+import ka.noteproject.repository.TaskListRepository;
+import ka.noteproject.repository.TasksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,20 +34,21 @@ public class ListView {
         model.addAttribute("currentList", lists.get(0L));
         model.addAttribute("tasks", tasks);
 
-        return "list";
+        return "index";
     }
 
     @RequestMapping(value = {"/list/{uid}"}, method = RequestMethod.GET)
     public String getIndex(Model model, @PathVariable long uid){
         Map<Long, TaskList> lists = getLists();
-        List<Tasks> tasks = tasksRepository.findByTaskList((TaskList) lists);
+        TaskList cat = lists.get(uid);
 
+        List<Tasks> tasks = tasksRepository.findByTaskList(cat);
 
         model.addAttribute("lists", lists.values());
         model.addAttribute("currentList", lists.get(uid));
         model.addAttribute("tasks", tasks);
 
-        return "list";
+        return "index";
     }
 
     private Map<Long, TaskList> getLists(){
@@ -60,13 +61,6 @@ public class ListView {
             result.put(entity.getUid(), entity);
         }
         return result;
-    }
-
-
-    @RequestMapping(value={"/addList"}, method=RequestMethod.GET)
-    public String listForm(Model model) {
-        model.addAttribute("addList", new TaskList());
-        return "addList";
     }
 
     @RequestMapping(value="/addList", method=RequestMethod.POST)
