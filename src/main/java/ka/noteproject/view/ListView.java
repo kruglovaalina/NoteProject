@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +22,7 @@ public class ListView {
     @Autowired
     private TasksRepository tasksRepository;
 
-    @RequestMapping(value = {"/list"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
     public String getIndex(Model model) {
         Map<Long, TaskList> lists = getLists();
         Iterable<Tasks> tasks = tasksRepository.findAll();
@@ -68,6 +65,27 @@ public class ListView {
         if (StringUtils.hasText(addlist.getName())) {
             TaskList result = taskListRepository.save(new TaskList(addlist.getName()));
             Long uid = result.getUid();
+
+            return "redirect:/list/" + uid;
+        }
+        return "redirect:/list";
+    }
+
+    @RequestMapping(value = {"/list/{uid}/delete"})
+    public String removeTaskList(@PathVariable Long uid) {
+        taskListRepository.deleteById(uid);
+
+        return "redirect:/list";
+    }
+
+    @RequestMapping(value = {"/list/{uid}/edit"}, method = RequestMethod.POST)
+    public String editTaskList(Model model, @PathVariable Long uid, @ModelAttribute("editlist") TaskList editlist) {
+        if (StringUtils.hasText(editlist.getName())) {
+            //TaskList result = taskListRepository.findById(uid);
+            //result.setName(editlist.getName());
+            //taskListRepository.save(result);
+
+            //Long uid = result.getUid();
 
             return "redirect:/list/" + uid;
         }

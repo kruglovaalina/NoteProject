@@ -3,12 +3,19 @@
 <head>
     <title>Notes</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        table{
+            table-layout: fixed;
+        }
+        td, th{
+            word-wrap: break-word;
+        }
+    </style>
 </head>
 <body>
 <table  align="center" rules="rows" style="width:60%;">
     <tr>
         <td>
-
             <table border="1"  bgcolor="#7FFFD4" cellpadding="10" style="width:100%; border-radius:5px;">
                 <tr>
                     <td  align="center" colspan="2">
@@ -16,22 +23,36 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" style="width:40%" bgcolor="#e6e6fa">
+                    <td valign="top" style="width:35%" bgcolor="#e6e6fa">
                         <h4 align="center">Категории:</h4>
                         <div th:each="list: ${lists}">
                             <a th:href="@{/list/{uid}(uid=${list.getUid()})}" th:utext="${list.getName()}"></a>
+                            <form align="right" action="#" method="POST" th:action="@{/list/{uid}/edit (uid=${list.getUid()})}">
+                                <input type="text" name="name" />
+                                <!-- <input type="hidden" name="uid" th:value="${currentList.getUid()}"> -->
+                                <input type="submit" value="Изменить" />
+                            </form>
+                            <form align="right" action="#" th:action="@{/list/{uid}/delete (uid=${list.getUid()})}">
+                                <input type="submit" value="Удалить" />
+                            </form>
                         </div>
                     </td>
                     <td valign="top" bgcolor="#e6e6fa">
-                        <h4 align="center" th:utext="${currentList.getName()}"></h4>
-                        <h4 align="center">Задачи:</h4>
-                        <div th:each="task: ${tasks}">
-                            <a th:href="@{/task/{uid}(uid=${task.getUid()})}" th:utext="${task.getTittle()}"></a>
+                        <h3 align="center" th:utext="${currentList.getName()}"></h3>                        <div th:each="task: ${tasks}">
+                            <a th:href="@{/task/{taskUid}(taskUid=${task.getUid()})}" th:utext="${task.getTittle()}"></a>
+                            <!-- <form align="right" action="#" th:action="@{/task/{taskUid}/edit (taskUid=${task.getUid()})}">
+                                <input type="text" name="title"  />
+                                <input type="submit" value="Изменить" />
+                            </form> -->
+                            <form align="right" action="#" th:action="@{/task/{taskUid}/delete (taskUid=${task.getUid()})}">
+                                <input type="hidden" name="parentUid" th:value="${currentList.getUid()}"  />
+                                <input type="submit" value="Удалить" />
+                            </form>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:40%" bgcolor="#e6e6fa">
+                    <td style="width:35%" bgcolor="#e6e6fa">
                         <form action="#" method="post" th:action="@{/addList}">
                             <input type="text" name="name" />
                             <input type="submit" value="Добавить" />

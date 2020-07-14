@@ -47,7 +47,7 @@ public class Tasks {
     }
 
     public Tasks(Long uid, String tittle, String description, Boolean done,
-                      Date createDate, Date updateDate, Date dueDate){
+                 Date createDate, Date updateDate, Date dueDate){
         this.uid = uid;
         this.tittle = tittle;
         this.description = description;
