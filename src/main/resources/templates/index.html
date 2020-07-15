@@ -38,12 +38,14 @@
                         </div>
                     </td>
                     <td valign="top" bgcolor="#e6e6fa">
-                        <h3 align="center" th:utext="${currentList.getName()}"></h3>                        <div th:each="task: ${tasks}">
-                            <a th:href="@{/task/{taskUid}(taskUid=${task.getUid()})}" th:utext="${task.getTittle()}"></a>
-                            <!-- <form align="right" action="#" th:action="@{/task/{taskUid}/edit (taskUid=${task.getUid()})}">
+                        <h3 align="center" th:utext="${currentList.getName()}"></h3>
+                        <div th:each="task: ${tasks}">
+                            <p th:href="@{/task/{taskUid}(taskUid=${task.getUid()})}" th:utext="${task.getTittle()}"></p>
+                            <form align="right" action="#" method="post" th:action="@{/task/{taskUid}/editTask (taskUid=${task.getUid()})}">
+                                <input type="hidden" name="taskUid" th:value="${taskUid}"  />
                                 <input type="text" name="title"  />
                                 <input type="submit" value="Изменить" />
-                            </form> -->
+                            </form>
                             <form align="right" action="#" th:action="@{/task/{taskUid}/delete (taskUid=${task.getUid()})}">
                                 <input type="hidden" name="parentUid" th:value="${currentList.getUid()}"  />
                                 <input type="submit" value="Удалить" />
@@ -59,7 +61,7 @@
                         </form>
                     </td>
                     <td bgcolor="#e6e6fa">
-                        <form action="#" method="post" th:action="@{/list/addTask}">
+                        <form th:if="${currentList.getUid()}" action="#" method="post" th:action="@{/list/addTask}">
                             <input type="hidden" name="parentUid" th:value="${currentList.getUid()}"  />
                             <input type="text" name="title"  />
                             <input type="submit" value="Добавить" />

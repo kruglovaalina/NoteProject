@@ -22,15 +22,15 @@ public class TaskView {
     @Autowired
     private TasksRepository tasksRepository;
 
-    @RequestMapping(value="/list/addTask", method=RequestMethod.GET)
+    @RequestMapping(value = "/list/addTask", method = RequestMethod.GET)
     public String taskForm(Model model) {
         model.addAttribute("addTask", new TaskList());
         return "addTask";
     }
 
-    @RequestMapping(value="/list/addTask", method=RequestMethod.POST)
+    @RequestMapping(value = "/list/addTask", method = RequestMethod.POST)
     public String taskSubmit(@ModelAttribute TaskListVO task, Model model) {
-        if (StringUtils.hasText(task.getTitle())){
+        if (StringUtils.hasText(task.getTitle())) {
             TaskList list = taskListRepository.findById(task.getParentUid()).get();
 
             Tasks task1 = new Tasks();
@@ -53,16 +53,25 @@ public class TaskView {
         }
         return "redirect:/list";
     }
-/*
-    @RequestMapping(value = {"/task/{taskUid}/edit"})
-    public String editTasks(@ModelAttribute TaskListVO task, @PathVariable Long taskUid) {
 
-
-        //tasksRepository.deleteById(taskUid);
-
-        return "redirect:/task/" + taskUid;
+    @RequestMapping(value = "/task/{taskUid}/editTask", method = RequestMethod.GET)
+    public String taskEditForm(Model model, @PathVariable Long taskUid) {
+        model.addAttribute("editTask", new TaskList());
+        return "editTask";
     }
 
- */
+    @RequestMapping(value = "/task/{taskUid}/editTask", method = RequestMethod.POST)
+    public String taskEdit(@ModelAttribute TaskListVO task, @PathVariable Long taskUid, Model model) {
+        if (StringUtils.hasText(task.getTitle())) {
+            Tasks taskEdit = tasksRepository.findById(taskUid).get();
+
+            taskEdit.setTittle(task.getTitle());
+            tasksRepository.save(taskEdit);
+            Long uid = taskEdit.getTaskListUid();
+
+            return "redirect:/list/" + uid;
+        }
+        return "redirect:/list/" + task.getParentUid();
+    }
 }
 

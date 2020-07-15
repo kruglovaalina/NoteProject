@@ -78,14 +78,12 @@ public class ListView {
         return "redirect:/list";
     }
 
-    @RequestMapping(value = {"/list/{uid}/edit"}, method = RequestMethod.POST)
-    public String editTaskList(Model model, @PathVariable Long uid, @ModelAttribute("editlist") TaskList editlist) {
+    @RequestMapping(value="/list/{uid}/edit", method=RequestMethod.POST)
+    public String listEdit(@ModelAttribute TaskList editlist, @PathVariable long uid,  Model model) {
         if (StringUtils.hasText(editlist.getName())) {
-            //TaskList result = taskListRepository.findById(uid);
-            //result.setName(editlist.getName());
-            //taskListRepository.save(result);
-
-            //Long uid = result.getUid();
+            TaskList result = taskListRepository.findById(uid);
+            result.setName(editlist.getName());
+            taskListRepository.save(result);
 
             return "redirect:/list/" + uid;
         }
